@@ -1,14 +1,24 @@
 # Fragnesia
 
+<p align="center">
+<img width="50%" alt="fragnesia logo" src="https://github.com/user-attachments/assets/2a35b25f-466f-4e01-8255-95c70ec15c7e" />
+</p>
+
 ## Abstract
 
-Fragnesia is a universal Linux local privilege escalation exploit, discovered by [William Bowling](https://x.com/wcbowling?lang=en) with the [V12 team](https://x.com/v12sec). Fragnesia is a member of the [Dirty Frag vulnerability class](https://github.com/V4bel/dirtyfrag/tree/master). This is a **separate bug** in the ESP/XFRM from dirtyfrag which has received [its own patch](https://lists.openwall.net/netdev/2026/05/13/79). However, it is in the same surface and the mitigation is the same as for dirtyfrag.
+https://github.com/user-attachments/assets/d8cdf3ad-2874-4a92-9a2e-46ae6e9a6761
+
+Fragnesia is a universal Linux local privilege escalation exploit, discovered with [V12](https://v12.sh) by [William Bowling](https://x.com/wcbowling?lang=en) with the [V12 team](https://x.com/v12sec). Fragnesia is a member of the [Dirty Frag](https://github.com/V4bel/dirtyfrag) vulnerability class. This is a **separate bug** in the ESP/XFRM from dirtyfrag which has received [its own patch](https://lists.openwall.net/netdev/2026/05/13/79). However, it is in the same surface and the mitigation is the same as for dirtyfrag.
 
 It abuses a logic bug in the Linux XFRM ESP-in-TCP subsystem to achieve arbitrary byte writes into the kernel page cache of read-only files, without requiring any race condition. 
 
 The technique extends the page-cache write bug class that includes Dirty Pipe: when a TCP socket transitions to `espintcp` ULP mode after data has already been spliced from a file into the receive queue, the kernel processes the queued file pages as ESP ciphertext. The AES-GCM keystream byte at counter block position 2, byte 0 is XORed directly into the cached file page. By selecting the IV nonce to produce a desired keystream byte, any target byte in the file can be set to any value — one byte per trigger invocation.
 
 The exploit builds a 256-entry lookup table mapping each possible keystream byte to its corresponding nonce, then iterates over a payload, firing the splice/ULP race for each byte that needs changing. It writes a small position-independent ELF stub (setresuid/setresgid/execve `/bin/sh`) over the first 192 bytes of `/usr/bin/su` in the page cache, then calls `execve("/usr/bin/su")` to obtain a root shell. The page cache modification is not backed to disk; the on-disk binary is untouched.
+
+## "Fragnesia"?
+
+Yes, because the core bug is: the skb “forgets” that a frag is shared during coalescing.
 
 ## Exploitation
 
@@ -49,7 +59,9 @@ printf 'install esp4 /bin/false\ninstall esp6 /bin/false\ninstall rxrpc /bin/fal
 
 All versions affected by dirtyfrag are affected.
 
-Any versions without this patch: https://lists.openwall.net/netdev/2026/05/13/79, so any Linux kernel before May 13 2026.
+Any versions without this patch: https://lists.openwall.net/netdev/2026/05/13/79, so Linux kernels before May 13 2026.
+
+Confirmed working on `Linux localhost 6.8.0-111-generic #111-Ubuntu SMP PREEMPT_DYNAMIC Sat Apr 11 23:16:02 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux` (vps purchased from Linode)
 
 ## How It Works
 
