@@ -1,5 +1,7 @@
 # QEMUtiny
 
+https://github.com/user-attachments/assets/9ff4e5f2-9bfe-405a-a6b9-2ee43fb8352a
+
 ## Abstract
 
 QEMUtiny is a memory corruption vulnerability in QEMU's implementation of CXL Type-3
@@ -7,9 +9,9 @@ device emulation, reported against QEMU master `007b29752e` and confirmed
 working against `5e61afe` (May 11, 2026).
 
 QEMUtiny was discovered autonomously with [V12](https://v12.sh) by Aaron Esau of the
-[V12 security team](https://x.com/v12sec). The PoC was prepared by [@xia0o0o0o](https://xia0.sh/).
+[V12 security team](https://x.com/v12sec).
 
-> Want to find issues like this in your own code? Try V12 at https://v12.sh.
+> Want to find issues like this in your own code? Try V12 at [v12.sh](https://v12.sh).
 
 The PoC chains two CXL mailbox bugs in `hw/cxl/cxl-mailbox-utils.c`: an
 out-of-bounds read in `GET_LOG`, followed by an out-of-bounds write in
@@ -128,4 +130,4 @@ The full QEMUtiny chain uses two bugs.
 
 ## Credit
 
-Found with V12 by Aaron Esau of the V12 security team.
+Found with V12 by Aaron Esau of the V12 security team. The weaponized PoC (qemu escape) was prepared by [@xia0o0o0o](https://xia0.sh/).
