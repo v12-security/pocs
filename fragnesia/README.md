@@ -8,7 +8,7 @@
 
 https://github.com/user-attachments/assets/d8cdf3ad-2874-4a92-9a2e-46ae6e9a6761
 
-Fragnesia is a universal Linux local privilege escalation exploit, discovered with [V12](https://v12.sh) by [William Bowling](https://x.com/wcbowling?lang=en) with the [V12 team](https://x.com/v12sec). Fragnesia is a member of the [Dirty Frag](https://github.com/V4bel/dirtyfrag) vulnerability class. This is a **separate bug** in the ESP/XFRM from dirtyfrag which has received [its own patch](https://lists.openwall.net/netdev/2026/05/13/79). However, it is in the same surface and the mitigation is the same as for dirtyfrag.
+Fragnesia (CVE-2026-46300) is a universal Linux local privilege escalation exploit, discovered with [V12](https://v12.sh) by [William Bowling](https://x.com/wcbowling?lang=en) with the [V12 team](https://x.com/v12sec). Fragnesia is a member of the [Dirty Frag](https://github.com/V4bel/dirtyfrag) vulnerability class. This is a **separate bug** in the ESP/XFRM from dirtyfrag which has received [its own patch](https://lists.openwall.net/netdev/2026/05/13/79). However, it is in the same surface and the mitigation is the same as for dirtyfrag. Fragnesia received CVSS score of [7.8](https://access.redhat.com/security/cve/cve-2026-46300).
 
 It abuses a logic bug in the Linux XFRM ESP-in-TCP subsystem to achieve arbitrary byte writes into the kernel page cache of read-only files, without requiring any race condition. 
 
