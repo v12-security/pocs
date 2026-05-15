@@ -35,6 +35,10 @@ QEMU + Mutiny.
 
 ## Offsets (USER FRIENDLY VERSION)
 
+```
+./update_poc_offsets.sh
+```
+
 - Replace `0x047E735` with `$(readelf -s qemu-system-x86_64  | grep cmd_logs_get_log | awk '{print $2}')`
 - Replace `0x0341BB0` with `$(objdump -S qemu-system-x86_64 | grep "<memmove@plt>:" | awk '{print $1}')`
 - Replace `0x01E72FF8` with `$(objdump -S qemu-system-x86_64 | grep "libc_start_main" | awk '{print $(NF-1)}')`
@@ -45,6 +49,7 @@ QEMU + Mutiny.
 ## Building
 
 ```
+./update_poc_offsets.sh
 gcc -O2 -Wall -Wextra -o exp poc.c
 ```
 
