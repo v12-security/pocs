@@ -1,6 +1,8 @@
 # TossUp: TerraMaster TOS Redis RCE
 
-<img width="1254" height="1254" alt="image" src="https://github.com/user-attachments/assets/8ed17d2c-f42f-4d9f-a5fc-c9f294a8ab5d" />
+<p align="center">
+<img width="50%" alt="tossup logo" src="https://github.com/user-attachments/assets/8ed17d2c-f42f-4d9f-a5fc-c9f294a8ab5d" />
+</p>
 
 ## Abstract
 
