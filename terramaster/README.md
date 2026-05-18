@@ -6,6 +6,8 @@
 
 ## Abstract
 
+https://github.com/user-attachments/assets/12573e6d-b29a-4189-b71c-a44a21ca8e62
+
 TossUp is a pair of bugs against TerraMaster TOS3_A1.0 4.2.41 on RTD1296
 devices: an unauthenticated Redis root RCE and a separate NFS
 `no_root_squash` local privilege escalation.
