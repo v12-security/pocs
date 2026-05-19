@@ -1,5 +1,7 @@
 # PinTheft
 
+https://github.com/user-attachments/assets/5d411fb7-24c3-49d6-b8f7-ae73f80300a9
+
 ## Abstract
 
 PinTheft is a Linux local privilege escalation exploit for an RDS zerocopy
@@ -7,7 +9,9 @@ double-free that can be turned into a page-cache overwrite through `io_uring`
 fixed buffers.
 
 PinTheft was discovered with [V12](https://v12.sh) by Aaron Esau of the
-[V12 security team](https://x.com/v12sec).
+[V12 security team](https://x.com/v12sec). We duped on this bug with some other teams
+and a [patch](https://lore.kernel.org/netdev/20260505234336.2132721-1-achender@kernel.org/) is available
+so we are releasing our PoC.
 
 > Want to find issues like this in your own code? Try V12 at [v12.sh](https://v12.sh).
 
@@ -141,8 +145,6 @@ The PoC was written for kernels with RDS, RDS TCP, and `io_uring` enabled. It
 also handles kernels with `CONFIG_INIT_ON_ALLOC_DEFAULT_ON` by arranging for the
 target page to be populated after allocator zeroing and after the filesystem
 fills the page from disk.
-
-A [patch](https://lore.kernel.org/netdev/20260505234336.2132721-1-achender@kernel.org/) is available.
 
 Confirmed default exposure is limited by module availability. The required RDS
 module is default on Arch Linux, but not on most common distribution kernels we
