@@ -1,0 +1,6 @@
+build/
+__pycache__/
+*.pyc
+*.elf
+*.smdh
+*.map
